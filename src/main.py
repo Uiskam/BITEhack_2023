@@ -1,3 +1,5 @@
+from time import sleep
+
 from src.flashcards_list_generation import generate_flashcard_templates_from_file, Difficulty
 from src.subtitles_handler import SubtitlesHandler
 from src.video_handler import VideoHandler
@@ -5,9 +7,10 @@ import cv2
 
 if __name__ == "__main__":
     flashcard_templates_list = generate_flashcard_templates_from_file("../resources/video.mp4",
-                                                                      "../resources/subtitles.srt", Difficulty.EASY)
+                                                                      "../resources/subtitles.srt", 40, Difficulty.HARD)
     for flashcard_templates_list in flashcard_templates_list:
         print("original:", flashcard_templates_list.original_word)
         print("translation:", flashcard_templates_list.translation)
         print("context:", flashcard_templates_list.context, "\n")
         cv2.imshow("Image", flashcard_templates_list.back_media)
+        cv2.waitKey(0)
