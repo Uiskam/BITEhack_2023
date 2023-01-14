@@ -1,15 +1,58 @@
 <InputFilesScreen>
-    padding: "10dp"
-    orientation: 'vertical'
+    MDBoxLayout:
+        padding: "10dp"
+        orientation: 'vertical'
+        MDLabel:
+    #                size_hint_x: 0.9
+            text: "Welcome to Flashcard generator"
+            font_style: "H4"
+            halign: 'center'
+            size_hint_y: 0.2
+        PathChooser:
+            id: video_chooser
+            file_type: "video"
+
+        MDSeparator:
+            orientation:'horizontal'
+            height: "1dp"
+        PathChooser:
+            id: subtitles_chooser
+            file_type: "subtitles"
+
+        MDBoxLayout:
+            size_hint_y: 0.2
+            orientation: 'horizontal'
+            LanguagesChooser:
+                id: subtitles_language_chooser
+                file_type: 'Subtitles'
+            MDSeparator:
+                orientation:'vertical'
+                height: "10dp"
+            LanguagesChooser:
+                id: translation_language_chooser
+                file_type: 'Translation'
+
+            MDRaisedButton:
+    #                size_hint_x: 0.1
+                font_style: "Button"
+                text: "next"
+                id: list_edit_next
+                pos_hint: {'center_x':.5, 'center_y':.5}
+                on_release: root.manager.current = 'flashcard_suggestions'
+    #            size_hint_x: 0.1
+
+<IconListItem>
+#
+#    IconLeftWidget:
+#        icon: root.icon
+
+<LanguagesChooser>
+    padding: ("10dp", "0dp")
+    orientation: 'horizontal'
     MDLabel:
-#                size_hint_x: 0.9
-        text: "Welcome to Flashcard generator"
-        font_style: "H4"
-        halign: 'center'
-        size_hint_y: 0.2
-    PathChooser:
-        id: video_chooser
-        file_type: "video"
-    PathChooser:
-        id: subtitles_chooser
-        file_type: "subtitles"
+        text: root.file_type + ' language: '
+    MDDropDownItem:
+        id: drop_item
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        text: root.supported_languages[0]
+        on_release: root.open_menu()

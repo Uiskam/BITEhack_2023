@@ -5,8 +5,11 @@
         size_hint_y: 0.5
         MDLabel:
 #                size_hint_x: 0.9
-            text: "Drag the " + root.file_type + " file or enter it's path"
+            text: "Drag the " + root.file_type + " file here or enter it's path:"
             font_style: "H5"
+    MDIconButton:
+        icon: "folder-arrow-down-outline"
+        pos_hint: {'center_x':.5, 'center_y':.5}
     MDBoxLayout:
 #            md_bg_color: app.theme_cls.bg_dark
         orientation: 'horizontal'
@@ -16,9 +19,5 @@
         MDTextField:
             id: input_field
             hint_text: root.file_type + " file path"
-
-        MDIconButton:
-            icon: 'check-outline'
-            on_release: print("buttn clik")#root.add_item(root.ids.input_field.text); root.ids.input_field.text = ""
 
 
