@@ -19,9 +19,9 @@ class SubtitlesHandler:
             for word in re.sub("<[^>]*>", "", sub.text).split():
                 word_l = re.sub(r'[^a-zA-Z]', '', word.lower())
                 if word_l in word_freq:
-                    word_freq[word_l] += [(start, end)]
+                    word_freq[word_l] += [(start, end, re.sub("<[^>]*>", "", sub.text))]
                 else:
-                    word_freq[word_l] = [(start, end)]
+                    word_freq[word_l] = [(start, end, re.sub("<[^>]*>", "", sub.text))]
 
         for key, value in word_freq.items():
             self.word_count += [(key, value)]
