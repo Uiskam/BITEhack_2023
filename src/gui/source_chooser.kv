@@ -22,7 +22,7 @@
             MDBoxLayout:
                 padding: ("10dp", 0)
                 MDTextField:
-                    id: input_field
+                    id: yt_input
                     hint_text: "YouTube link"
 
             MDRaisedButton:
@@ -32,7 +32,7 @@
                 text: "generate\nflashcards"
                 id: next_button
     #            pos_hint: {'center_x':.5, 'center_y':.5}
-                on_release: root.manager.current = "file_chooser"
+                on_release: app.suggestion_from_link(yt_input.text)
         MDBoxLayout:
             size_hint_y: 0.1
         MDLabel:
