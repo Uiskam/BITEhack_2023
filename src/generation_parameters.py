@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Optional
 
-from src.flashcards_list_generation import Difficulty
 
 
 @dataclass
