@@ -1,14 +1,6 @@
 import os
 import sys
 
-from youtube_transcript_api import YouTubeTranscriptApi
-
-'''
-pip install youtube-transcript-api # for windows
-or 
-pip3 install youtube-transcript-api # for Linux and MacOs 
-'''
-
 import pyautogui as pyautogui
 from kivy.metrics import dp
 from kivy.uix.screenmanager import ScreenManager
@@ -74,11 +66,12 @@ class FlashcardGeneratorApp(MDApp):
 
         # prints the result
 
-        flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
-                                                            "../resources/subtitles.srt", 40, Difficulty.EASY,
-                                                            ["que"])
-        generate_flashcard_templates_from_link(
-            "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino","es")
+        generate_flashcard_templates_from_file("../resources/video.mp4",
+                                               "../resources/subtitles.srt", 40, Difficulty.EASY,
+                                               ["que"])
+        flashcards = generate_flashcard_templates_from_link(
+            "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino", "es", 40, Difficulty.EASY,
+            ["que"])
 
         sm.add_widget(
             ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
