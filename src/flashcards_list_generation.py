@@ -7,7 +7,7 @@ import cv2
 from src.flashcard_template import FlashcardTemplate
 from subtitles_handler import SubtitlesHandler
 from video_handler import VideoHandler
-
+from translate_api import translate
 
 class Difficulty(Enum):
     EASY = 0,
@@ -17,6 +17,7 @@ class Difficulty(Enum):
 
 def calc_word_list(subt_handl: SubtitlesHandler, difficulty: Difficulty, amount: int):
     word_list = subt_handl.get_word_list()
+    print(len(word_list))
     if difficulty == Difficulty.EASY:
         return random.sample(word_list[:len(word_list) // 3], amount)
     if difficulty == Difficulty.NORMAL:
@@ -34,6 +35,7 @@ def generate_flashcard_templates_from_file(video_file_path: str, subtitle_file_p
 
     for word in calc_word_list(subt_handl, difficulty, amount):
         selection = random.randint(0, len(word[1]) - 1)
-        ans.append(FlashcardTemplate(word[0], "translation of " + word[0], word[1][selection][2],
+        print(word)
+        ans.append(FlashcardTemplate(word[0], translate(text=word[0], source_language='es', destination_language='en'), word[1][selection][2],
                                      video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2)))
     return ans

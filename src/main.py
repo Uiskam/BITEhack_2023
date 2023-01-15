@@ -12,5 +12,7 @@ if __name__ == "__main__":
         print("original:", flashcard_templates_list.original_word)
         print("translation:", flashcard_templates_list.translation)
         print("context:", flashcard_templates_list.context, "\n")
-        cv2.imshow("Image", flashcard_templates_list.back_media)
-        cv2.waitKey(0)
+        back_media = flashcard_templates_list.back_media
+        if back_media:
+            cv2.imshow("Image", back_media)
+            cv2.waitKey(0)

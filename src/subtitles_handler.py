@@ -16,12 +16,14 @@ class SubtitlesHandler:
         for sub in self.subs:
             start = time_to_ms(sub.start.to_time())
             end = time_to_ms(sub.end.to_time())
-            for word in re.sub("<[^>]*>", "", sub.text).split():
-                word_l = re.sub(r'[^a-zA-Z]', '', word.lower())
-                if word_l in word_freq:
-                    word_freq[word_l] += [(start, end, re.sub("<[^>]*>", "", sub.text))]
+            for potential_word in re.sub("<[^>]*>", "", sub.text).split():
+                potential_word
+                word = re.sub(r'[^0-9\w\s\u0300-\u036f]', '', potential_word).lower()
+
+                if word in word_freq:
+                    word_freq[word] += [(start, end, re.sub("<[^>]*>", "", sub.text))]
                 else:
-                    word_freq[word_l] = [(start, end, re.sub("<[^>]*>", "", sub.text))]
+                    word_freq[word] = [(start, end, re.sub("<[^>]*>", "", sub.text))]
 
         for key, value in word_freq.items():
             self.word_count += [(key, value)]
