@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '')))
 from kivy.core.window import Window
 
 from src.flashcards_list_generation import generate_flashcard_templates_from_file, Difficulty, \
-    generate_flashcard_templates_from_link
+    generate_flashcard_templates_from_link, generate_flashcard_templates
 from src.subtitles_handler import SubtitlesHandler
 from src.video_handler import VideoHandler
 import cv2
@@ -80,14 +80,14 @@ class FlashcardGeneratorApp(MDApp):
 
         # prints the result
 
-        flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
-                                                            "../resources/subtitles.srt", 40, Difficulty.EASY,
-                                                            ["que"])
-        # generate_flashcard_templates_from_link(
+        # flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
+        #                                                     "../resources/subtitles.srt", 40, Difficulty.EASY,
+        #                                                     ["que"])
+        # # generate_flashcard_templates_from_link(
         #     "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino","es")
 
-        self.sm.add_widget(
-            ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
+        # self.sm.add_widget(
+        #     ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
         self.sm.current = "source_chooser"
         # self.set_up_menu()
         return self.sm
@@ -101,8 +101,11 @@ class FlashcardGeneratorApp(MDApp):
         self.amount_picker.prev = "source_chooser"
         self.sm.current = "amount_picker"
 
-    def go_suggestions_from_amounts(self, amounts: list[int]):
-        self.generation_params = amounts
+    def go_suggestions_from_amounts(self):
+        self.generation_params.amounts = self.amount_picker.get_amounts()
+        flashcards = generate_flashcard_templates(self.generation_params)
+        self.sm.add_widget(
+            ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
         self.sm.current = "flashcard_suggestions"
 
     def suggestion_from_link(self, link: str):

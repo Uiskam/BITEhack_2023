@@ -19,7 +19,7 @@
         #                size_hint_x: 0.1
 
             font_style: "Button"
-            text: "next"
+            text: root.next_button_text
             id: next_button
 #            pos_hint: {'center_x':.5, 'center_y':.5}
-            on_release: root.parent.manager.current = root.next
+            on_release: root.go_next()

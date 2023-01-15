@@ -17,6 +17,9 @@ class FlashcardAmountSelector(Screen):
             self.items += [FlashcardViewClass(diff.name)]
             self.ids.main_box.add_widget(self.items[-1])
 
+    def get_amounts(self):
+        return [int(t.ids.text_field.text) for t in self.items]
+
 
 class FlashcardViewClass(MDBoxLayout):
     title = StringProperty()
