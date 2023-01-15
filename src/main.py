@@ -3,6 +3,7 @@ import sys
 
 from youtube_transcript_api import YouTubeTranscriptApi
 
+from src.anki_saver import save_to_anki
 from src.generation_parameters import GenerationParameters
 from src.gui.source_chooser import SourceChooser
 
@@ -97,27 +98,31 @@ class FlashcardGeneratorApp(MDApp):
         translated_lang = LanguagesChooser.lang_code[translated_lang]
         self.generation_params.link = link
         self.generation_params.original_language = original_lang
-        self.generation_params.translation_language = translated_lang
+        self.generation_params.translation_language = 'en'
         self.amount_picker.prev = "source_chooser"
         self.sm.current = "amount_picker"
 
     def go_suggestions_from_amounts(self):
         self.generation_params.amounts = self.amount_picker.get_amounts()
-        flashcards = generate_flashcard_templates(self.generation_params)
+        self.flashcards = generate_flashcard_templates(self.generation_params)
         self.sm.add_widget(
-            ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
+            ListEditingLayout(items=self.flashcards, title="Generated flashcards", name='flashcard_suggestions'))
         self.sm.current = "flashcard_suggestions"
 
-    def suggestion_from_link(self, link: str):
-        flashcards = generate_flashcard_templates_from_link(link, 'es')
-        self.sm.add_widget(
-            ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
-        self.sm.current = "source_chooser"
+    # def suggestion_from_link(self, link: str):
+    #     self.flashcards = generate_flashcard_templates_from_link(link, 'es')
+    #     self.sm.add_widget(
+    #         ListEditingLayout(items=self.flashcards, title="Generated flashcards", name='flashcard_suggestions'))
+    #     self.sm.current = "source_chooser"
 
     def _on_file_drop(self, window, file_path, x, y):
         self.file_chooser.on_file_drop(window, file_path, x, y)
         if Window.focus == False:
             pyautogui.click()
+
+    def generate_anki(self):
+        print("generating anki")
+        save_to_anki(self.flashcards, os.path.join('output'))
 
 
 def main():
