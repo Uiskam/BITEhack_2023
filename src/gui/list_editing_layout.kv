@@ -60,9 +60,10 @@
 
 <ItemViewClass>
     orientation: 'horizontal'
-    MDBoxLayout:
-        Image:
-            texture: root.flashcard.get_texture()  if root.flashcard is not None else None
+#    MDBoxLayout:
+    Image:
+        size_hint_x: 0.4
+        texture: root.flashcard.get_texture()  if root.flashcard is not None else None
 #        canvas.before:
 #            Rectangle:
 #                pos: self.pos
@@ -70,20 +71,40 @@
 #                source: root.flashcard.back_media  if root.flashcard is not None else "none"
     #                source: '../resources/stars_background.jpg'
     Label:
+        size_hint_x: 0.25
+        halign: 'center'
         text: root.flashcard.original_word if root.flashcard is not None else "none"
         bold: True
     MDSeparator:
         orientation:'vertical'
         height: "10dp"
     Label:
+        size_hint_x: 0.25
+        halign: 'center'
         text: root.flashcard.translation if root.flashcard is not None else "none"
         bold: True
     MDSeparator:
         orientation:'vertical'
         height: "10dp"
     Label:
+        size_hint_x: 0.4
+        halign: 'center'
         text: root.flashcard.context if root.flashcard is not None else "none"
         bold: True
-    MDIconButton:
-        icon: 'delete'
-        on_release: root.remove(root.flashcard)
+
+    MDBoxLayout:
+        size_hint_x: 0.2
+        orientation: 'vertical'
+        pos_hint_y: 0.5
+        MDBoxLayout:
+            size_hint_y: 0.15
+        MDIconButton:
+            pos_hint: {'center_x': .5, 'center_y': .2}
+            icon: 'cancel'
+            on_release: root.remove(root.flashcard)
+        MDIconButton:
+            pos_hint: {'center_x': .5, 'center_y': .6}
+            icon: 'close-thick'
+            on_release: root.remove(root.flashcard)
+        MDBoxLayout:
+            size_hint_y: 0.15
