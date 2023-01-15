@@ -34,6 +34,7 @@ def generate_flashcard_templates_from_file(video_file_path: str, subtitle_file_p
 
     for word in calc_word_list(subt_handl, difficulty, amount, banned_words):
         selection = random.randint(0, len(word[1]) - 1)
-        ans.append(FlashcardTemplate(word[0], "translation of " + word[0], word[1][selection][2],
+        translated_text = translate(text=[0], source_language='es', destination_language='en')
+        ans.append(FlashcardTemplate(word[0], translated_text, word[1][selection][2],
                                      video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2)))
     return ans
