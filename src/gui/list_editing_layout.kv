@@ -1,0 +1,87 @@
+
+<ListEditingLayout>
+    MDBoxLayout:
+#        canvas.before:
+#            Rectangle:
+#                pos: self.pos
+#                size: self.size
+##                source: '../glut.png'
+#                source: '../resources/stars_background.jpg'
+
+#        md_bg_color: app.theme_cls.bg_darkes
+        orientation: 'vertical'
+        MDBoxLayout:
+            md_bg_color: app.theme_cls.bg_darkest
+            padding: dp(20), dp(20)
+            adaptive_height: True
+            orientation: 'horizontal'
+            MDLabel:
+#                size_hint_x: 0.9
+                text: root.title
+                font_style: "H5"
+            MDRaisedButton:
+#                size_hint_x: 0.1
+                font_style: "Button"
+                text: "next"
+                id: list_edit_next
+#                md_bg_color: self.theme_cls.primary_light
+#                md_bg_color: self.theme_cls.primary_dark
+
+        MDRecycleView:
+#            size_hint_y: 0.8
+            adaptive_height: False
+            id: recycleview
+            viewclass: 'ItemViewClass'
+#            data: [{'text': item} for item in root.items]
+#            data: [{'text': item, 'items': root.items} for item in root.items]
+            data: [{'flashcard': item, 'remove': root.remove_item} for item in root.items]
+            RecycleBoxLayout:
+                default_size: None, dp(56)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+
+        MDBoxLayout:
+#            md_bg_color: app.theme_cls.bg_dark
+            orientation: 'horizontal'
+            adaptive_height: True
+            padding: dp(10)
+            MDTextField:
+                id: input_field
+                hint_text: "add new entry"
+    #            text: root.title
+
+            MDIconButton:
+                icon: 'check-outline'
+                on_release: root.add_item(root.ids.input_field.text); root.ids.input_field.text = ""
+
+
+
+<ItemViewClass>
+    orientation: 'horizontal'
+#    MDBoxLayout:
+#        canvas.before:
+#            Rectangle:
+#                pos: self.pos
+#                size: self.size
+#                source: root.flashcard.back_media  if root.flashcard is not None else "none"
+    #                source: '../resources/stars_background.jpg'
+    Label:
+        text: root.flashcard.original_word if root.flashcard is not None else "none"
+        bold: True
+    MDSeparator:
+        orientation:'vertical'
+        height: "10dp"
+    Label:
+        text: root.flashcard.translation if root.flashcard is not None else "none"
+        bold: True
+    MDSeparator:
+        orientation:'vertical'
+        height: "10dp"
+    Label:
+        text: root.flashcard.context if root.flashcard is not None else "none"
+        bold: True
+    MDIconButton:
+        icon: 'delete'
+        on_release: root.remove(root.flashcard)

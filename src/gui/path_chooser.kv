@@ -1,0 +1,23 @@
+<PathChooser>
+    orientation: 'vertical'
+#    on_drop_file: print("Dropped a file: " + root.file_type)
+    MDBoxLayout:
+        size_hint_y: 0.5
+        MDLabel:
+#                size_hint_x: 0.9
+            text: "Drag the " + root.file_type + " file here or enter it's path:"
+            font_style: "H5"
+    MDIconButton:
+        icon: "folder-arrow-down-outline"
+        pos_hint: {'center_x':.5, 'center_y':.5}
+    MDBoxLayout:
+#            md_bg_color: app.theme_cls.bg_dark
+        orientation: 'horizontal'
+#            adaptive_height: True
+        size_hint_y: 0.5
+        padding: dp(10)
+        MDTextField:
+            id: input_field
+            hint_text: root.file_type + " file path"
+
+
