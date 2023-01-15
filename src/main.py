@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import ScreenManager
 from kivymd.app import MDApp
 from kivymd.uix.menu import MDDropdownMenu
 
+from src.gui.flashcard_amount_selector import FlashcardAmountSelector
 from src.gui.list_editing_layout import ListEditingLayout
 from src.gui.path_chooser import InputFilesScreen
 
@@ -72,13 +73,14 @@ class FlashcardGeneratorApp(MDApp):
         self.file_chooser = InputFilesScreen(name='file_chooser')
         Window.bind(on_drop_file=self._on_file_drop)
         sm = ScreenManager()
+        sm.add_widget(FlashcardAmountSelector())
         sm.add_widget(self.file_chooser)
         flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
                                                                       "../resources/subtitles.srt", 40, Difficulty.EASY,
                                                                       ["que"])
         sm.add_widget(
             ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
-        sm.current = "file_chooser"
+        #sm.current = "file_chooser"
         # self.set_up_menu()
         return sm
 
