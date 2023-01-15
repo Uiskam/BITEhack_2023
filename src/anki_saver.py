@@ -1,12 +1,24 @@
 import csv
-from typing import List
-# from flashcard_template import FlashcardTemplate
+import os
+import numpy as np
+import cv2
 
 
-# import re
+def save_to_anki(anki_templates: list, prefix='anki'):
+    pwd = os.getcwd()
+    print(pwd)
 
-def save_to_anki(anki_templates: List, path: str):
-    with open(path, 'w') as file:
-        writer = csv.writer(file)
-        for card in anki_templates:
-            writer.writerow([card.original_word, card.translation])
+    for anki in anki_templates:
+        if type(anki.back_media) == np.ndarray:
+            image_name = f'{prefix}_{anki.original_word}.png'
+            image_path = f'../resources/anki/images/{image_name}'
+            cv2.imwrite(image_path, anki.back_media)
+
+            with open('../resources/anki/anki.csv', 'a') as file:
+                write = csv.writer(file)
+                write.writerow([anki.original_word, anki.translation[1:-1], anki.context, f'<img src="{image_name}>"', ''])
+        elif type(anki.back_media) == str:
+            with open('../resources/anki/anki.csv', 'a') as file:
+                write = csv.writer(file)
+                write.writerow([anki.original_word, anki.translation[1:-1], anki.context, anki.back_media, ''])
+    pass

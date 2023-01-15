@@ -11,30 +11,35 @@ def translate_text(text: str ="Hello, world!", source_language: str ='en-US', de
         return "Invalid language code"
 
 
-    # client = translate.TranslationServiceClient()
-    # project_id="bitehack2023"
-    # location = "global"
-    # parent = f"projects/{project_id}/locations/{location}"
+    client = translate.TranslationServiceClient()
+    project_id="bitehack2023"
+    location = "global"
+    parent = f"projects/{project_id}/locations/{location}"
 
-    # response = client.translate_text(
-    #     request={
-    #         "parent": parent,
-    #         "contents": [text],
-    #         "mime_type": "text/plain",
-    #         "source_language_code": source_language,
-    #         "target_language_code": destination_language,
-    #     }
-    # )
+    response = client.translate_text(
+        request={
+            "parent": parent,
+            "contents": [text],
+            "mime_type": "text/plain",
+            "source_language_code": source_language,
+            "target_language_code": destination_language,
+        }
+    )
 
-    # translations=[]
-    # for translation in response.translations:
-    #     translations.append(translation.translated_text)
-    # return requests.utils.quote(translations[0])
+    print(f'text: {text}')
+    print(source_language)
+    print(destination_language)
+    print(response.translations[0])
+
+    translations=[]
+    for translation in response.translations:
+        translations.append(translation.translated_text)
+    return requests.utils.quote(translations[0])
     # return translations[0]
 
-    random_return = random.choice(['Nie tym razem', 'Chciałbyś...', 'Otóż nie'])
+    # random_return = random.choice(['Nie tym razem', 'Chciałbyś...', 'Otóż nie'])
 
-    return requests.utils.quote(random_return)
+    # return requests.utils.quote(random_return)
 
 
 if __name__ == '__main__':

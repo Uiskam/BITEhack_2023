@@ -22,7 +22,9 @@ def translate():
     except KeyError as e:
         return 'Incorrect parameters. Please enter http://IP:5000/translate?text=TEXT&src=en&dst=es to translate from english to spanish'
 
+    print(f'text1: {text}')
     text = requests.utils.unquote(text)
+    print(f'text2: {text}')
 
     results = translate_text(text, source_language, destination_language)
 

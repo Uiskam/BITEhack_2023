@@ -122,7 +122,7 @@ class FlashcardGeneratorApp(MDApp):
 
     def generate_anki(self):
         print("generating anki")
-        save_to_anki(self.flashcards, os.path.join('output'))
+        save_to_anki(self.flashcards)
 
 
 def main():
