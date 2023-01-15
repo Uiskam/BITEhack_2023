@@ -1,6 +1,14 @@
 import os
 import sys
 
+from youtube_transcript_api import YouTubeTranscriptApi
+
+'''
+pip install youtube-transcript-api # for windows
+or 
+pip3 install youtube-transcript-api # for Linux and MacOs 
+'''
+
 import pyautogui as pyautogui
 from kivy.metrics import dp
 from kivy.uix.screenmanager import ScreenManager
@@ -15,7 +23,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '')))
 
 from kivy.core.window import Window
 
-from src.flashcards_list_generation import generate_flashcard_templates_from_file, Difficulty
+from src.flashcards_list_generation import generate_flashcard_templates_from_file, Difficulty, \
+    generate_flashcard_templates_from_link
 from src.subtitles_handler import SubtitlesHandler
 from src.video_handler import VideoHandler
 import cv2
@@ -29,20 +38,6 @@ def opencv_example():
 
     # Wait for user to close the window
     cv2.waitKey(0)
-
-
-def example_flashcards():
-    flashcard_templates_list = generate_flashcard_templates_from_file("../resources/video.mp4",
-                                                                      "../resources/subtitles.srt", 40, Difficulty.EASY,
-                                                                      ["que"])
-    for flashcard_templates_list in flashcard_templates_list:
-        print("original:", flashcard_templates_list.original_word)
-        print("translation:", flashcard_templates_list.translation)
-        print("context:", flashcard_templates_list.context, "\n")
-        back_media = flashcard_templates_list.back_media
-        if back_media is not None:
-            cv2.imshow("Image", back_media)
-            cv2.waitKey(0)
 
 
 class FlashcardGeneratorApp(MDApp):
@@ -71,16 +66,23 @@ class FlashcardGeneratorApp(MDApp):
         self.theme_cls.primary_palette = "LightBlue"
         self.theme_cls.material_style = "M3"
         self.file_chooser = InputFilesScreen(name='file_chooser')
+        self.amount_picker = FlashcardAmountSelector(name='amount_picker')
         Window.bind(on_drop_file=self._on_file_drop)
         sm = ScreenManager()
-        sm.add_widget(FlashcardAmountSelector())
+        sm.add_widget(self.amount_picker)
         sm.add_widget(self.file_chooser)
+
+        # prints the result
+
         flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
-                                                                      "../resources/subtitles.srt", 40, Difficulty.EASY,
-                                                                      ["que"])
+                                                            "../resources/subtitles.srt", 40, Difficulty.EASY,
+                                                            ["que"])
+        generate_flashcard_templates_from_link(
+            "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino","es")
+
         sm.add_widget(
             ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
-        #sm.current = "file_chooser"
+        sm.current = "file_chooser"
         # self.set_up_menu()
         return sm
 

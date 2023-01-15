@@ -11,20 +11,11 @@
             id: main_box
             orientation: 'vertical'
 
-        MDBoxLayout:
-            padding: dp(20), dp(20)
-            adaptive_height: True
-            orientation: 'horizontal'
-            MDLabel:
-#                size_hint_x: 0.9
-                text: ""
-                font_style: "H5"
-            MDRaisedButton:
-#                size_hint_x: 0.1
-                font_style: "Button"
-                text: "next"
-                id: list_edit_next
-                on_release: print([item.ids.text_field.text for item in root.items])
+        NavBar:
+            size_hint_y: 0.2
+            parent: root
+            next: 'flashcard_suggestions'
+            prev: ''
 
 
 

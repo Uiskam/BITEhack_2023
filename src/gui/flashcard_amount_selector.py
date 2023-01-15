@@ -19,7 +19,7 @@ class FlashcardAmountSelector(Screen):
 
 
 class FlashcardViewClass(MDBoxLayout):
-    title = StringProperty("hardest")
+    title = StringProperty()
 
     def __init__(self, title="test", *args, **kwargs):
         super().__init__(*args, **kwargs)

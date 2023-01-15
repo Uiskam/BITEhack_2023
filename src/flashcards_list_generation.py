@@ -1,13 +1,16 @@
 import random
+from urllib.parse import urlparse, parse_qs
 from enum import Enum
 from time import sleep
 
 import cv2
+from youtube_transcript_api import YouTubeTranscriptApi
 
 from src.flashcard_template import FlashcardTemplate
 from subtitles_handler import SubtitlesHandler
 from video_handler import VideoHandler
 from translate_api import translate
+
 
 class Difficulty(Enum):
     EASY = 0,
@@ -38,3 +41,12 @@ def generate_flashcard_templates_from_file(video_file_path: str, subtitle_file_p
         ans.append(FlashcardTemplate(word[0], translated_text, word[1][selection][2],
                                      video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2)))
     return ans
+
+
+def generate_flashcard_templates_from_link(yt_link: str, language_short: str):
+    url_data = urlparse(yt_link)
+    query = parse_qs(url_data.query)
+    video = query["v"][0]
+    print(video)
+    srt = YouTubeTranscriptApi.get_transcript(video, languages=[language_short])
+    print(type(srt), srt)

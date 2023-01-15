@@ -19,11 +19,11 @@
 #                size_hint_x: 0.9
                 text: root.title
                 font_style: "H5"
-            MDRaisedButton:
-#                size_hint_x: 0.1
-                font_style: "Button"
-                text: "next"
-                id: list_edit_next
+            NavBar:
+                size_hint_y: 0.2
+                parent: root
+                next: 'amount_picker'
+                prev: 'file_chooser'
 #                md_bg_color: self.theme_cls.primary_light
 #                md_bg_color: self.theme_cls.primary_dark
 
