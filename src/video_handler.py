@@ -1,5 +1,7 @@
 import string
+
 import cv2
+
 
 class VideoHandler:
     def __init__(self, video_path: string):
