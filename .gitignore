@@ -131,3 +131,4 @@ dmypy.json
 
 video.mp4
 .idea/
+resources/anki/*
