@@ -69,10 +69,10 @@ class FlashcardGeneratorApp(MDApp):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "LightBlue"
         self.theme_cls.material_style = "M3"
-        # self.file_chooser = InputFilesScreen()
+        self.file_chooser = InputFilesScreen(name='file_chooser')
         Window.bind(on_drop_file=self._on_file_drop)
         sm = ScreenManager()
-        sm.add_widget(InputFilesScreen(name='file_chooser'))
+        sm.add_widget(self.file_chooser)
         sm.add_widget(
             ListEditingLayout(items=["asd", "basd"], title="Generated flashcards", name='flashcard_suggestions'))
         sm.current = "file_chooser"
@@ -86,6 +86,7 @@ class FlashcardGeneratorApp(MDApp):
 
 
 def main():
+    # example_flashcards()
     FlashcardGeneratorApp().run()
 
 
