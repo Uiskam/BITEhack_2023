@@ -2,22 +2,14 @@
 <FlashcardAmountSelector>
     MDBoxLayout:
         orientation: 'vertical'
+        size_hint: (0.5, 0.6)
+        pos_hint: ({"center_x":0.5, "center_y":0.5})
 
         MDBoxLayout:
 #            size_hint_y: 0.8
             adaptive_height: False
             id: main_box
             orientation: 'vertical'
-           # viewclass: 'FlashcardViewClass'
-#            data: [{'text': item} for item in root.items]
-#            data: [{'text': item, 'items': root.items} for item in root.items]
-#            data: [{'title': item.title} for item in root.items]
-#            RecycleBoxLayout:
-#                default_size: None, dp(56)
-#                default_size_hint: 1, None
-#                size_hint_y: None
-#                height: self.minimum_height
-#                orientation: 'vertical'
 
         MDBoxLayout:
             padding: dp(20), dp(20)
@@ -40,13 +32,6 @@
 <FlashcardViewClass>
     orientation: 'horizontal'
     size_hint_y: 0.1
-#    MDBoxLayout:
-#        canvas.before:
-#            Rectangle:
-#                pos: self.pos
-#                size: self.size
-#                source: root.flashcard.back_media  if root.flashcard is not None else "none"
-    #                source: '../resources/stars_background.jpg'
     Label:
         text: root.title
         bold: True
