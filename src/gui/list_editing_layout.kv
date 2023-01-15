@@ -11,7 +11,7 @@
 #        md_bg_color: app.theme_cls.bg_darkes
         orientation: 'vertical'
         MDBoxLayout:
-            md_bg_color: app.theme_cls.bg_darkest
+#            md_bg_color: app.theme_cls.bg_darkest
             padding: dp(20), dp(20)
             adaptive_height: True
             orientation: 'horizontal'
@@ -19,11 +19,7 @@
 #                size_hint_x: 0.9
                 text: root.title
                 font_style: "H5"
-            NavBar:
-                size_hint_y: 0.2
-                parent: root
-                next: 'amount_picker'
-                prev: 'file_chooser'
+
 #                md_bg_color: self.theme_cls.primary_light
 #                md_bg_color: self.theme_cls.primary_dark
 
@@ -43,6 +39,7 @@
                 orientation: 'vertical'
 
         MDBoxLayout:
+            size_hint_y: 0.2
 #            md_bg_color: app.theme_cls.bg_dark
             orientation: 'horizontal'
             adaptive_height: True
@@ -55,6 +52,12 @@
             MDIconButton:
                 icon: 'check-outline'
                 on_release: root.add_item(root.ids.input_field.text); root.ids.input_field.text = ""
+
+        NavBar:
+            size_hint_y: 0.15
+            parent: root
+            prev: 'amount_picker'
+            next: ''
 
 
 

@@ -77,8 +77,8 @@ class FlashcardGeneratorApp(MDApp):
         flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
                                                             "../resources/subtitles.srt", 40, Difficulty.EASY,
                                                             ["que"])
-        generate_flashcard_templates_from_link(
-            "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino","es")
+        # generate_flashcard_templates_from_link(
+        #     "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino","es")
 
         sm.add_widget(
             ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))

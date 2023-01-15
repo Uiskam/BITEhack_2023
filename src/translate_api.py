@@ -11,5 +11,8 @@ def translate(text: str = 'Hello, world!',
     url = f'http://{ip}:5000/translate'
     text = requests.utils.quote(bytes(text))
     params = {'text': text, 'src': source_language, 'dst': destination_language}
-    response = requests.get(url, params=params)
+    try:
+        response = requests.get(url, params=params)
+    except:
+        return "Michal postaw kurde ten serwer"
     return json.loads(response.text)
