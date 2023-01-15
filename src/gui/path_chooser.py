@@ -7,6 +7,8 @@ from kivy.core.window import Window
 from kivymd.uix.list import OneLineIconListItem
 from kivymd.uix.menu import MDDropdownMenu
 
+from src.gui.nav_bar import NavBar
+
 Builder.load_file('gui/path_chooser.kv')
 Builder.load_file('gui/input_files_screen.kv')
 

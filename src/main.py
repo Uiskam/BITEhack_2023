@@ -49,6 +49,7 @@ class FlashcardGeneratorApp(MDApp):
     #     self.menu.bind()
 
     def build(self):
+        Window.size = (1280, 720)
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "LightBlue"
         self.theme_cls.material_style = "M3"

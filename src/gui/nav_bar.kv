@@ -1,0 +1,25 @@
+<NavBar>
+#    orientation: 'horizontal'
+#    padding: ("10dp", "50dp")
+    MDAnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'center'
+        MDRaisedButton:
+        #                size_hint_x: 0.1
+            font_style: "Button"
+            text: "prev"
+            id: prev_button
+#            pos_hint: {'center_x':.5, 'center_y':.5}
+            on_release: root.parent.manager.current = root.prev
+
+    MDAnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'center'
+        MDRaisedButton:
+        #                size_hint_x: 0.1
+
+            font_style: "Button"
+            text: "next"
+            id: next_button
+#            pos_hint: {'center_x':.5, 'center_y':.5}
+            on_release: root.parent.manager.current = root.next
