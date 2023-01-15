@@ -6,12 +6,14 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.boxlayout import MDBoxLayout
 
+from src.flashcard_template import FlashcardTemplate
+
 
 class ListEditingLayout(Screen):
     title = StringProperty()
     items = ListProperty()
 
-    def __init__(self, title: str, items: List[str], **kwargs):
+    def __init__(self, title: str, items: List[FlashcardTemplate], **kwargs):
         super().__init__(**kwargs)
         self.items = items
         self.title = title
@@ -19,12 +21,12 @@ class ListEditingLayout(Screen):
     def add_item(self, name: str):
         self.items.append(name)
 
-    def remove_item(self, name: str):
-        self.items.remove(name)
+    def remove_item(self, item):
+        self.items.remove(item)
 
 
 class ItemViewClass(MDBoxLayout):
-    text = StringProperty()
+    flashcard = ObjectProperty()
     remove = ObjectProperty()
 
 

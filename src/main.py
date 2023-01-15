@@ -73,8 +73,11 @@ class FlashcardGeneratorApp(MDApp):
         Window.bind(on_drop_file=self._on_file_drop)
         sm = ScreenManager()
         sm.add_widget(self.file_chooser)
+        flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
+                                                                      "../resources/subtitles.srt", 40, Difficulty.EASY,
+                                                                      ["que"])
         sm.add_widget(
-            ListEditingLayout(items=["asd", "basd"], title="Generated flashcards", name='flashcard_suggestions'))
+            ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
         sm.current = "file_chooser"
         # self.set_up_menu()
         return sm
