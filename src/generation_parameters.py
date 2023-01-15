@@ -11,5 +11,5 @@ class GenerationParameters:
     subtitles_file: Optional[str]
     original_language: str
     translation_language: str
-    amounts: list[tuple[Difficulty, int]]
+    amounts: list[int]
     banned_words: list[str] = field(default_factory=lambda: [])
