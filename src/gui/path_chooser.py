@@ -35,6 +35,7 @@ class IconListItem(OneLineIconListItem):
 class LanguagesChooser(MDBoxLayout):
     file_type = StringProperty("file_type")
     supported_languages = ['Spanish', 'English']
+    lang_code = {'Spanish': 'es', 'English': 'en'}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

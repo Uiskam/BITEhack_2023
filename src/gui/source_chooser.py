@@ -1,6 +1,8 @@
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 
+from src.gui.path_chooser import LanguagesChooser
+
 
 class SourceChooser(Screen):
     pass

@@ -32,7 +32,21 @@
                 text: "generate\nflashcards"
                 id: next_button
     #            pos_hint: {'center_x':.5, 'center_y':.5}
-                on_release: app.go_amounts_from_yt(yt_input.text, 'es', 'en')
+                on_release: app.go_amounts_from_yt(yt_input.text, subtitles_lang_chooser.ids.drop_item.text, translation_lang_chooser.ids.drop_item.text )
+        MDBoxLayout:
+#            size_hint_y: 0.5
+            size_hint_x: 0.8
+            pos_hint: {"center_x":0.5}
+            orientation: 'horizontal'
+            LanguagesChooser:
+                id: subtitles_lang_chooser
+                file_type: 'Subtitles'
+            MDSeparator:
+                orientation:'vertical'
+                height: "10dp"
+            LanguagesChooser:
+                id: translation_lang_chooser
+                file_type: 'Translation'
         MDBoxLayout:
             size_hint_y: 0.1
         MDLabel:

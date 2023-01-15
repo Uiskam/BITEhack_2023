@@ -20,7 +20,7 @@ from kivymd.uix.menu import MDDropdownMenu
 
 from src.gui.flashcard_amount_selector import FlashcardAmountSelector
 from src.gui.list_editing_layout import ListEditingLayout
-from src.gui.path_chooser import InputFilesScreen
+from src.gui.path_chooser import InputFilesScreen, LanguagesChooser
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '')))
 
@@ -93,9 +93,17 @@ class FlashcardGeneratorApp(MDApp):
         return self.sm
 
     def go_amounts_from_yt(self, link: str, original_lang: str, translated_lang: str):
+        original_lang = LanguagesChooser.lang_code[original_lang]
+        translated_lang = LanguagesChooser.lang_code[translated_lang]
         self.generation_params.link = link
         self.generation_params.original_language = original_lang
         self.generation_params.translation_language = translated_lang
+        self.amount_picker.prev = "source_chooser"
+        self.sm.current = "amount_picker"
+
+    def go_suggestions_from_amounts(self, amounts: list[int]):
+        self.generation_params = amounts
+        self.sm.current = "flashcard_suggestions"
 
     def suggestion_from_link(self, link: str):
         flashcards = generate_flashcard_templates_from_link(link, 'es')
