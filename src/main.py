@@ -71,10 +71,10 @@ class FlashcardGeneratorApp(MDApp):
         self.file_chooser = InputFilesScreen(name='file_chooser')
         self.amount_picker = FlashcardAmountSelector(name='amount_picker')
         Window.bind(on_drop_file=self._on_file_drop)
-        sm = ScreenManager()
-        sm.add_widget(self.source_chooser)
-        sm.add_widget(self.amount_picker)
-        sm.add_widget(self.file_chooser)
+        self.sm = ScreenManager()
+        self.sm.add_widget(self.source_chooser)
+        self.sm.add_widget(self.amount_picker)
+        self.sm.add_widget(self.file_chooser)
 
         # prints the result
 
@@ -84,11 +84,17 @@ class FlashcardGeneratorApp(MDApp):
         # generate_flashcard_templates_from_link(
         #     "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino","es")
 
-        sm.add_widget(
+        self.sm.add_widget(
             ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
-        sm.current = "source_chooser"
+        self.sm.current = "source_chooser"
         # self.set_up_menu()
-        return sm
+        return self.sm
+
+    def suggestion_from_link(self, link: str):
+        flashcards = generate_flashcard_templates_from_link(link, 'es')
+        self.sm.add_widget(
+            ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
+        self.sm.current = "source_chooser"
 
     def _on_file_drop(self, window, file_path, x, y):
         self.file_chooser.on_file_drop(window, file_path, x, y)
