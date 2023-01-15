@@ -14,6 +14,6 @@ if __name__ == "__main__":
         print("translation:", flashcard_templates_list.translation)
         print("context:", flashcard_templates_list.context, "\n")
         back_media = flashcard_templates_list.back_media
-        if back_media:
+        if back_media is not None:
             cv2.imshow("Image", back_media)
             cv2.waitKey(0)
