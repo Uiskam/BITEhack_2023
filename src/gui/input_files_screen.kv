@@ -1,3 +1,5 @@
+#:include gui/nav_bar.kv
+
 <InputFilesScreen>
     MDBoxLayout:
         padding: "10dp"
@@ -32,14 +34,19 @@
                 id: translation_language_chooser
                 file_type: 'Translation'
 
-            MDRaisedButton:
-    #                size_hint_x: 0.1
-                font_style: "Button"
-                text: "next"
-                id: list_edit_next
-                pos_hint: {'center_x':.5, 'center_y':.5}
-                on_release: root.manager.current = 'flashcard_suggestions'
-    #            size_hint_x: 0.1
+        NavBar:
+            size_hint_y: 0.2
+            parent: root
+            next: 'flashcard_suggestions'
+
+#            MDRaisedButton:
+#    #                size_hint_x: 0.1
+#                font_style: "Button"
+#                text: "next"
+#                id: list_edit_next
+#                pos_hint: {'center_x':.5, 'center_y':.5}
+#                on_release: root.manager.current = 'flashcard_suggestions'
+#    #            size_hint_x: 0.1
 
 <IconListItem>
 #
