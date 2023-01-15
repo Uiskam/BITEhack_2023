@@ -16,10 +16,11 @@ def translate(text: str = 'Hello, world!',
     if failed_retries < 3:
         try:
             response = requests.get(url, params=params)
-            response_text = response.text
+            response_text = requests.utils.unquote(response.text)
         # print(response_text)
         # print(type(response_text))
             failed_retries = 0
+            print(response_text)
             return response_text
         except requests.exceptions.ConnectionError as e:
             print(e)
