@@ -7,7 +7,8 @@ import cv2
 
 if __name__ == "__main__":
     flashcard_templates_list = generate_flashcard_templates_from_file("../resources/video.mp4",
-                                                                      "../resources/subtitles.srt", 40, Difficulty.HARD)
+                                                                      "../resources/subtitles.srt", 40, Difficulty.EASY,
+                                                                      ["que"])
     for flashcard_templates_list in flashcard_templates_list:
         print("original:", flashcard_templates_list.original_word)
         print("translation:", flashcard_templates_list.translation)
