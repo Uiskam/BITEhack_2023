@@ -8,10 +8,11 @@ def translate(text: str = 'Hello, world!',
               destination_language: str = 'es',
               ip: str = '192.168.52.98') -> object:
     """Translate text from source_language to destination_language. Language codes are ISO 639-1 codes."""
+    print(text, ":", source_language, " ------> ", destination_language)
 
     global failed_retries
     url = f'http://{ip}:5000/translate'
-    text = requests.utils.quote(bytes(text))
+    text = requests.utils.quote(bytes(text, 'utf8'))
     params = {'text': text, 'src': source_language, 'dst': destination_language}
     if failed_retries < 3:
         try:

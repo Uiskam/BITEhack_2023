@@ -51,8 +51,9 @@ def generate_flashcard_templates_from_file(params: GenerationParameters) -> list
 
     for word in calc_word_list(subt_handl, params):
         selection = random.randint(0, len(word[1]) - 1)
-        translated_text = translate(text=[0], source_language=params.original_language,
+        translated_text = translate(text=word[0], source_language=params.original_language,
                                     destination_language=params.translation_language)
+        # print("\n", params.original_language, " ------> ", params.translation_language)
         ans.append(FlashcardTemplate(word[0], translated_text, word[1][selection][2],
                                      video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2)))
     return ans
@@ -65,8 +66,9 @@ def generate_flashcard_templates_from_link(params: GenerationParameters) -> list
 
     for word in calc_word_list(subt_handl, params):
         selection = random.randint(0, len(word[1]) - 1)
-        translated_text = translate(text=[0], source_language=params.original_language,
+        translated_text = translate(text=word[0], source_language=params.original_language,
                                     destination_language=params.translation_language)
+
         ans.append(FlashcardTemplate(word[0], translated_text, word[1][selection][2],
                                      video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2)))
         print(video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2))
