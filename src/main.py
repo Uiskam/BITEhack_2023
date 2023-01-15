@@ -3,7 +3,7 @@ import sys
 
 from youtube_transcript_api import YouTubeTranscriptApi
 
-from src.GenerationParameters import GenerationParameters
+from src.generation_parameters import GenerationParameters
 from src.gui.source_chooser import SourceChooser
 
 '''
@@ -64,7 +64,7 @@ class FlashcardGeneratorApp(MDApp):
     #     self.menu.bind()
 
     def build(self):
-        self.generation_parameters = GenerationParameters(None, None, None, None, None, [], [])
+        self.generation_params = GenerationParameters(None, None, None, None, None, [], [])
         Window.size = (1280, 720)
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "LightBlue"
@@ -91,6 +91,11 @@ class FlashcardGeneratorApp(MDApp):
         self.sm.current = "source_chooser"
         # self.set_up_menu()
         return self.sm
+
+    def go_amounts_from_yt(self, link: str, original_lang: str, translated_lang: str):
+        self.generation_params.link = link
+        self.generation_params.original_language = original_lang
+        self.generation_params.translation_language = translated_lang
 
     def suggestion_from_link(self, link: str):
         flashcards = generate_flashcard_templates_from_link(link, 'es')
