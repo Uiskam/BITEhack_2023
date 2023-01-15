@@ -36,7 +36,7 @@
 #            data: [{'text': item, 'items': root.items} for item in root.items]
             data: [{'flashcard': item, 'remove': root.remove_item} for item in root.items]
             RecycleBoxLayout:
-                default_size: None, dp(56)
+                default_size: None, dp(150)
                 default_size_hint: 1, None
                 size_hint_y: None
                 height: self.minimum_height
@@ -60,7 +60,9 @@
 
 <ItemViewClass>
     orientation: 'horizontal'
-#    MDBoxLayout:
+    MDBoxLayout:
+        Image:
+            texture: root.flashcard.get_texture()  if root.flashcard is not None else None
 #        canvas.before:
 #            Rectangle:
 #                pos: self.pos
