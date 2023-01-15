@@ -1,0 +1,57 @@
+
+<SourceChooser>
+    MDBoxLayout:
+        padding: ("10dp", "20dp")
+        orientation: 'vertical'
+        MDLabel:
+    #                size_hint_x: 0.9
+            text: "Welcome to Flashcard generator"
+            font_style: "H4"
+            halign: 'center'
+
+        MDLabel:
+    #                size_hint_x: 0.9
+            text: "Enter a link to YouTube:"
+            font_style: "H5"
+            halign: 'center'
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_x: 0.7
+            pos_hint: {"center_x": 0.5}
+            MDBoxLayout:
+                padding: ("10dp", 0)
+                MDTextField:
+                    id: input_field
+                    hint_text: "YouTube link"
+
+            MDRaisedButton:
+            #                size_hint_x: 0.1
+
+                font_style: "Button"
+                text: "generate\nflashcards"
+                id: next_button
+    #            pos_hint: {'center_x':.5, 'center_y':.5}
+                on_release: root.manager.current = "file_chooser"
+        MDBoxLayout:
+            size_hint_y: 0.1
+        MDLabel:
+    #                size_hint_x: 0.9
+#            padding: "20dp"
+            text: "Or"
+            font_style: "H5"
+            halign: 'center'
+
+        MDLabel:
+    #                size_hint_x: 0.9
+            text: "Generate flashcards from files:"
+            font_style: "H5"
+            halign: 'center'
+
+        MDFloatingActionButton:
+            pos_hint: {"center_x": 0.5}
+            icon: "file-move"
+            md_bg_color: app.theme_cls.primary_color
+            on_release: root.manager.current = "file_chooser"
+
+        MDBoxLayout:

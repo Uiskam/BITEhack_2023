@@ -3,6 +3,8 @@ import sys
 
 from youtube_transcript_api import YouTubeTranscriptApi
 
+from src.gui.source_chooser import SourceChooser
+
 '''
 pip install youtube-transcript-api # for windows
 or 
@@ -65,10 +67,12 @@ class FlashcardGeneratorApp(MDApp):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "LightBlue"
         self.theme_cls.material_style = "M3"
+        self.source_chooser = SourceChooser(name='source_chooser')
         self.file_chooser = InputFilesScreen(name='file_chooser')
         self.amount_picker = FlashcardAmountSelector(name='amount_picker')
         Window.bind(on_drop_file=self._on_file_drop)
         sm = ScreenManager()
+        sm.add_widget(self.source_chooser)
         sm.add_widget(self.amount_picker)
         sm.add_widget(self.file_chooser)
 
@@ -82,7 +86,7 @@ class FlashcardGeneratorApp(MDApp):
 
         sm.add_widget(
             ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
-        sm.current = "file_chooser"
+        sm.current = "source_chooser"
         # self.set_up_menu()
         return sm
 
