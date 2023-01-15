@@ -1,5 +1,6 @@
 import string
 from abc import ABC, abstractmethod
+from urllib.parse import urlparse, parse_qs
 
 import cv2
 
@@ -30,10 +31,13 @@ class LinkVideoHandler(VideoHandler):
     def __init__(self, link: str):
         super().__init__()
         self.left_link_side = '<iframe width="560" height="315" src="'
-        self.link = link
+        url_data = urlparse(link)
+        query = parse_qs(url_data.query)
+        video = query["v"][0]
+        self.link = "https://www.youtube.com/embed/"+video
         self.right_link_side = '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; ' \
                                'encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
     def get_frame(self, ms: int):
-        s = ms * 1000
-        return self.left_link_side + self.link + "?start=" + str(s)
+        s = ms // 1000
+        return self.left_link_side + self.link + "?start=" + str(int(s)) + self.right_link_side

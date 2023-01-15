@@ -56,9 +56,10 @@ def generate_flashcard_templates_from_link(yt_link: str, subt_language_short: st
     ans = []
 
     for word in calc_word_list(subt_handl, difficulty, amount, banned_words):
-        print(word[0])
+
         selection = random.randint(0, len(word[1]) - 1)
         translated_text = translate(text=[0], source_language=subt_language_short, destination_language='en')
         ans.append(FlashcardTemplate(word[0], translated_text, word[1][selection][2],
                                      video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2)))
+        print(video_handl.get_frame((word[1][selection][0] + word[1][selection][1]) / 2))
     return ans
