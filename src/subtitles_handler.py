@@ -1,4 +1,4 @@
-import re
+import regex as re
 
 import pysrt
 
@@ -17,8 +17,8 @@ class SubtitlesHandler:
             start = time_to_ms(sub.start.to_time())
             end = time_to_ms(sub.end.to_time())
             for potential_word in re.sub("<[^>]*>", "", sub.text).split():
-                potential_word
-                word = re.sub(r'[^0-9\w\s\u0300-\u036f]', '', potential_word).lower()
+                word = potential_word.lower()
+                word = re.sub(r'[\p{P}\p{N}]', '', word)
 
                 if word in word_freq:
                     word_freq[word] += [(start, end, re.sub("<[^>]*>", "", sub.text))]
