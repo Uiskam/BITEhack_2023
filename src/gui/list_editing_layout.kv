@@ -11,7 +11,7 @@
 #        md_bg_color: app.theme_cls.bg_darkes
         orientation: 'vertical'
         MDBoxLayout:
-            md_bg_color: app.theme_cls.bg_darkest
+#            md_bg_color: app.theme_cls.bg_darkest
             padding: dp(20), dp(20)
             adaptive_height: True
             orientation: 'horizontal'
@@ -19,11 +19,7 @@
 #                size_hint_x: 0.9
                 text: root.title
                 font_style: "H5"
-            NavBar:
-                size_hint_y: 0.2
-                parent: root
-                next: 'amount_picker'
-                prev: 'file_chooser'
+
 #                md_bg_color: self.theme_cls.primary_light
 #                md_bg_color: self.theme_cls.primary_dark
 
@@ -36,13 +32,14 @@
 #            data: [{'text': item, 'items': root.items} for item in root.items]
             data: [{'flashcard': item, 'remove': root.remove_item} for item in root.items]
             RecycleBoxLayout:
-                default_size: None, dp(56)
+                default_size: None, dp(150)
                 default_size_hint: 1, None
                 size_hint_y: None
                 height: self.minimum_height
                 orientation: 'vertical'
 
         MDBoxLayout:
+            size_hint_y: 0.2
 #            md_bg_color: app.theme_cls.bg_dark
             orientation: 'horizontal'
             adaptive_height: True
@@ -56,11 +53,20 @@
                 icon: 'check-outline'
                 on_release: root.add_item(root.ids.input_field.text); root.ids.input_field.text = ""
 
+        NavBar:
+            size_hint_y: 0.15
+            parent: root
+            prev: 'amount_picker'
+            next: ''
+
 
 
 <ItemViewClass>
     orientation: 'horizontal'
 #    MDBoxLayout:
+    Image:
+        size_hint_x: 0.4
+        texture: root.flashcard.get_texture()  if root.flashcard is not None else None
 #        canvas.before:
 #            Rectangle:
 #                pos: self.pos
@@ -68,20 +74,40 @@
 #                source: root.flashcard.back_media  if root.flashcard is not None else "none"
     #                source: '../resources/stars_background.jpg'
     Label:
+        size_hint_x: 0.25
+        halign: 'center'
         text: root.flashcard.original_word if root.flashcard is not None else "none"
         bold: True
     MDSeparator:
         orientation:'vertical'
         height: "10dp"
     Label:
+        size_hint_x: 0.25
+        halign: 'center'
         text: root.flashcard.translation if root.flashcard is not None else "none"
         bold: True
     MDSeparator:
         orientation:'vertical'
         height: "10dp"
     Label:
+        size_hint_x: 0.4
+        halign: 'center'
         text: root.flashcard.context if root.flashcard is not None else "none"
         bold: True
-    MDIconButton:
-        icon: 'delete'
-        on_release: root.remove(root.flashcard)
+
+    MDBoxLayout:
+        size_hint_x: 0.2
+        orientation: 'vertical'
+        pos_hint_y: 0.5
+        MDBoxLayout:
+            size_hint_y: 0.15
+        MDIconButton:
+            pos_hint: {'center_x': .5, 'center_y': .2}
+            icon: 'cancel'
+            on_release: root.remove(root.flashcard)
+        MDIconButton:
+            pos_hint: {'center_x': .5, 'center_y': .6}
+            icon: 'close-thick'
+            on_release: root.remove(root.flashcard)
+        MDBoxLayout:
+            size_hint_y: 0.15

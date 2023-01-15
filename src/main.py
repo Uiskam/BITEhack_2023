@@ -1,6 +1,17 @@
 import os
 import sys
 
+from youtube_transcript_api import YouTubeTranscriptApi
+
+from src.GenerationParameters import GenerationParameters
+from src.gui.source_chooser import SourceChooser
+
+'''
+pip install youtube-transcript-api # for windows
+or 
+pip3 install youtube-transcript-api # for Linux and MacOs 
+'''
+
 import pyautogui as pyautogui
 from kivy.metrics import dp
 from kivy.uix.screenmanager import ScreenManager
@@ -53,31 +64,39 @@ class FlashcardGeneratorApp(MDApp):
     #     self.menu.bind()
 
     def build(self):
+        self.generation_parameters = GenerationParameters(None, None, None, None, None, [], [])
         Window.size = (1280, 720)
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "LightBlue"
         self.theme_cls.material_style = "M3"
+        self.source_chooser = SourceChooser(name='source_chooser')
         self.file_chooser = InputFilesScreen(name='file_chooser')
         self.amount_picker = FlashcardAmountSelector(name='amount_picker')
         Window.bind(on_drop_file=self._on_file_drop)
-        sm = ScreenManager()
-        sm.add_widget(self.amount_picker)
-        sm.add_widget(self.file_chooser)
+        self.sm = ScreenManager()
+        self.sm.add_widget(self.source_chooser)
+        self.sm.add_widget(self.amount_picker)
+        self.sm.add_widget(self.file_chooser)
 
         # prints the result
 
-        generate_flashcard_templates_from_file("../resources/video.mp4",
-                                               "../resources/subtitles.srt", 40, Difficulty.EASY,
-                                               ["que"])
-        flashcards = generate_flashcard_templates_from_link(
-            "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino", "es", 40, Difficulty.EASY,
-            ["que"])
+        flashcards = generate_flashcard_templates_from_file("../resources/video.mp4",
+                                                            "../resources/subtitles.srt", 40, Difficulty.EASY,
+                                                            ["que"])
+        # generate_flashcard_templates_from_link(
+        #     "https://www.youtube.com/watch?v=lC6SRuGtIJ4&ab_channel=ChejoQuemeAndrino","es")
 
-        sm.add_widget(
+        self.sm.add_widget(
             ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
-        sm.current = "file_chooser"
+        self.sm.current = "source_chooser"
         # self.set_up_menu()
-        return sm
+        return self.sm
+
+    def suggestion_from_link(self, link: str):
+        flashcards = generate_flashcard_templates_from_link(link, 'es')
+        self.sm.add_widget(
+            ListEditingLayout(items=flashcards, title="Generated flashcards", name='flashcard_suggestions'))
+        self.sm.current = "source_chooser"
 
     def _on_file_drop(self, window, file_path, x, y):
         self.file_chooser.on_file_drop(window, file_path, x, y)

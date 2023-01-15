@@ -6,8 +6,8 @@
         orientation: 'vertical'
         MDLabel:
     #                size_hint_x: 0.9
-            text: "Welcome to Flashcard generator"
-            font_style: "H4"
+            text: "generate flashcards from files"
+            font_style: "H5"
             halign: 'center'
             size_hint_y: 0.2
         PathChooser:
@@ -37,7 +37,8 @@
         NavBar:
             size_hint_y: 0.2
             parent: root
-            next: 'flashcard_suggestions'
+            prev: 'source_chooser'
+            next: 'amount_picker'
 
 #            MDRaisedButton:
 #    #                size_hint_x: 0.1
