@@ -1,0 +1,60 @@
+
+<FlashcardAmountSelector>
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        MDBoxLayout:
+#            size_hint_y: 0.8
+            adaptive_height: False
+            id: main_box
+            orientation: 'vertical'
+           # viewclass: 'FlashcardViewClass'
+#            data: [{'text': item} for item in root.items]
+#            data: [{'text': item, 'items': root.items} for item in root.items]
+#            data: [{'title': item.title} for item in root.items]
+#            RecycleBoxLayout:
+#                default_size: None, dp(56)
+#                default_size_hint: 1, None
+#                size_hint_y: None
+#                height: self.minimum_height
+#                orientation: 'vertical'
+
+        MDBoxLayout:
+            padding: dp(20), dp(20)
+            adaptive_height: True
+            orientation: 'horizontal'
+            MDLabel:
+#                size_hint_x: 0.9
+                text: ""
+                font_style: "H5"
+            MDRaisedButton:
+#                size_hint_x: 0.1
+                font_style: "Button"
+                text: "next"
+                id: list_edit_next
+                on_release: print([item.ids.text_field.text for item in root.items])
+
+
+
+
+<FlashcardViewClass>
+    orientation: 'horizontal'
+    size_hint_y: 0.1
+#    MDBoxLayout:
+#        canvas.before:
+#            Rectangle:
+#                pos: self.pos
+#                size: self.size
+#                source: root.flashcard.back_media  if root.flashcard is not None else "none"
+    #                source: '../resources/stars_background.jpg'
+    Label:
+        text: root.title
+        bold: True
+    MDSeparator:
+        orientation:'vertical'
+        height: "10dp"
+    MDTextField:
+        id:text_field
+        text: "0"
+        halign: "center"
+        pos_hint: {"center_y": 0.5}
